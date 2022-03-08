@@ -1,4 +1,4 @@
-package com.lizzars.kotlinudemydelivery.activities.client.home
+package com.lizzars.kotlinudemydelivery.activities.restaurant.home
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,12 +13,15 @@ import com.lizzars.kotlinudemydelivery.activities.MainActivity
 import com.lizzars.kotlinudemydelivery.fragments.client.ClientCategoriesFragment
 import com.lizzars.kotlinudemydelivery.fragments.client.ClientOrdersFragment
 import com.lizzars.kotlinudemydelivery.fragments.client.ClientProfileFragment
+import com.lizzars.kotlinudemydelivery.fragments.restaurant.RestaurantCategoryFragment
+import com.lizzars.kotlinudemydelivery.fragments.restaurant.RestaurantOrdersFragment
+import com.lizzars.kotlinudemydelivery.fragments.restaurant.RestaurantProductFragment
 import com.lizzars.kotlinudemydelivery.models.User
 import com.lizzars.kotlinudemydelivery.utils.SharedPref
 
-class ClientHomeActivity : AppCompatActivity() {
+class RestaurantHomeActivity : AppCompatActivity() {
 
-    private val tag = "ClientHomeActivity"
+    private val tag = "RestaurantHomeActivity"
 
     //    var buttonLogout: Button? = null
     var sharedPref: SharedPref? = null
@@ -28,24 +31,29 @@ class ClientHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_client_home)
+        setContentView(R.layout.activity_restaurant_home)
 
         sharedPref = SharedPref(this)
 //        buttonLogout = findViewById(R.id.btn_logout)
 //        buttonLogout?.setOnClickListener { logout() }
 
-        openFragment(ClientCategoriesFragment())
+        openFragment(RestaurantOrdersFragment ())
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation?.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.item_home -> {
-                    openFragment(ClientCategoriesFragment())
+                    openFragment(RestaurantOrdersFragment())
                     true
                 }
 
-                R.id.item_orders -> {
-                    openFragment(ClientOrdersFragment())
+                R.id.item_category -> {
+                    openFragment(RestaurantCategoryFragment())
+                    true
+                }
+
+                R.id.item_product -> {
+                    openFragment(RestaurantProductFragment())
                     true
                 }
 
@@ -71,6 +79,7 @@ class ClientHomeActivity : AppCompatActivity() {
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
 
+
     }
 
     /* metodo para obtener datos de usuario en sesion del mobile */
@@ -93,5 +102,4 @@ class ClientHomeActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 }

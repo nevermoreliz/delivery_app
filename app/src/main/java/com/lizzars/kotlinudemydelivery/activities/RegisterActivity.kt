@@ -1,6 +1,8 @@
 package com.lizzars.kotlinudemydelivery.activities
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,10 +11,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.google.gson.Gson
 import com.lizzars.kotlinudemydelivery.R
+import com.lizzars.kotlinudemydelivery.activities.client.home.ClientHomeActivity
 import com.lizzars.kotlinudemydelivery.models.ResponseHttp
 import com.lizzars.kotlinudemydelivery.models.User
 import com.lizzars.kotlinudemydelivery.providers.UsersProvider
+import com.lizzars.kotlinudemydelivery.utils.SharedPref
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +63,20 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(i)
     }
 
+    /* Metodo para ir al home de cliente */
+    private fun goToClienteHome() {
+        val i = Intent(this, ClientHomeActivity::class.java)
+        startActivity(i)
+    }
+
+    /* Metodo para ir al guardado de imagen de perfil de usuario */
+    private fun goToSaveImage() {
+        val i = Intent(this, SaveImageActivity::class.java)
+        /* eliminar historial de pantallas */
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
     /* Metodo para Registrar */
     private fun register() {
         val name = editTextName?.text.toString()
@@ -90,6 +109,12 @@ class RegisterActivity : AppCompatActivity() {
                     call: Call<ResponseHttp>,
                     response: Response<ResponseHttp>
                 ) {
+                    if (response.body()?.success == true) {
+                        saveUserInSession(response.body()?.data.toString())
+//                        goToClienteHome()
+                        goToSaveImage()
+                    }
+
                     Toast.makeText(
                         this@RegisterActivity,
                         response.body()?.message,
@@ -163,5 +188,15 @@ class RegisterActivity : AppCompatActivity() {
 
         return true
 
+    }
+
+    /* metodo para guardar datos de usuario en sesion */
+    private fun saveUserInSession(data: String) {
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+        //        transformar data en tipo usuario model
+        val user = gson.fromJson(data, User::class.java)
+        //        almacenando datos en session moblie
+        sharedPref.save("user", user)
     }
 }

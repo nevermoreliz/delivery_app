@@ -1,6 +1,8 @@
 package com.lizzars.kotlinudemydelivery.activities
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,6 +14,8 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.lizzars.kotlinudemydelivery.R
 import com.lizzars.kotlinudemydelivery.activities.client.home.ClientHomeActivity
+import com.lizzars.kotlinudemydelivery.activities.delivery.home.DeliveryHomeActivity
+import com.lizzars.kotlinudemydelivery.activities.restaurant.home.RestaurantHomeActivity
 import com.lizzars.kotlinudemydelivery.models.ResponseHttp
 import com.lizzars.kotlinudemydelivery.models.User
 import com.lizzars.kotlinudemydelivery.providers.UsersProvider
@@ -62,6 +66,32 @@ class MainActivity : AppCompatActivity() {
     /* Metodo para ir al home de cliente */
     private fun goToClienteHome() {
         val i = Intent(this, ClientHomeActivity::class.java)
+        /* eliminar historial de pantallas */
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    /* Metodo para ir al home de Restaurante */
+    private fun goToRestaurantHome() {
+        val i = Intent(this, RestaurantHomeActivity::class.java)
+        /* eliminar historial de pantallas */
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    /* Metodo para ir al home de Delivery */
+    private fun goToDeliveryHome() {
+        val i = Intent(this, DeliveryHomeActivity::class.java)
+        /* eliminar historial de pantallas */
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    /* Metodo para ir la actividad de seleccionar rol */
+    private fun goToSelectRol() {
+        val i = Intent(this, SelectRolesActivity::class.java)
+        /* eliminar historial de pantallas */
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         startActivity(i)
     }
 
@@ -89,7 +119,6 @@ class MainActivity : AppCompatActivity() {
 
                         saveUserInSession(response.body()?.data.toString())
 
-                        goToClienteHome()
 
                     } else {
                         Toast.makeText(
@@ -147,6 +176,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /* metodo para guardar datos en session en mobile caso "user" */
     private fun saveUserInSession(data: String) {
         val sharedPref = SharedPref(this)
         val gson = Gson()
@@ -154,6 +184,15 @@ class MainActivity : AppCompatActivity() {
         val user = gson.fromJson(data, User::class.java)
         //        almacenando datos en session moblie
         sharedPref.save("user", user)
+
+        if (user.roles?.size!! > 1) {
+            // el usuario tiene mas de un rol
+            goToSelectRol()
+
+        } else {
+            // el usario solo tiene un rol
+            goToClienteHome()
+        }
     }
 
     //    obtener datos de usaurio de la sesion
@@ -167,7 +206,22 @@ class MainActivity : AppCompatActivity() {
             //    convertir dato en un modelo User
             val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
 
-            goToClienteHome()
+            if (!sharedPref.getData("rol").isNullOrBlank()) {
+                /* si el usuario seleciono el rol*/
+                val rol = sharedPref.getData("rol")?.replace("\"", "")
+                Log.d(tag, "ROL $rol")
+
+                if (rol == "RESTAURANTE") {
+                    goToRestaurantHome()
+                } else if (rol == "CLIENTE") {
+                    goToClienteHome()
+                } else if (rol == "REPARTIDOR") {
+                    goToDeliveryHome()
+                }
+            } else {
+                Log.d(tag, "ROL NO EXISTE")
+                goToClienteHome()
+            }
         }
     }
 

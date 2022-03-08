@@ -6,8 +6,23 @@
         <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/drawable/edittext_custom.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/drawable/rounded_button.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_client_home.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_delivery_home.xml" value="0.209375" />
         <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_restaurant_home.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_save_image.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/activity_select_roles.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/cardview_roles.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_client_categories.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_client_orders.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_client_profile.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_delivery_orders.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_restaurant_category.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_restaurant_orders.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/layout/fragment_restaurant_product.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/menu/bottom_navigation_menu_client.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/menu/bottom_navigation_menu_delivery.xml" value="0.209375" />
+        <entry key="..\:/Users/blizz/AndroidStudioProjects/KotlinUdemyDelivery/app/src/main/res/menu/bottom_navigation_menu_restaurant.xml" value="0.209375" />
       </map>
     </option>
   </component>
