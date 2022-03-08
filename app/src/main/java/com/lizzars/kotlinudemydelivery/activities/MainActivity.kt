@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         imageViewGoToRegister?.setOnClickListener { goToRegister() }
         buttonLogin?.setOnClickListener { login() }
 
+        getUserFromSession()
 
     }
 
@@ -149,10 +150,25 @@ class MainActivity : AppCompatActivity() {
     private fun saveUserInSession(data: String) {
         val sharedPref = SharedPref(this)
         val gson = Gson()
-//        transformar data en tipo usuario model
+        //        transformar data en tipo usuario model
         val user = gson.fromJson(data, User::class.java)
-//        almacenando datos en session moblie
+        //        almacenando datos en session moblie
         sharedPref.save("user", user)
+    }
+
+    //    obtener datos de usaurio de la sesion
+    private fun getUserFromSession() {
+
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+
+        if (!sharedPref.getData("user").isNullOrBlank()) {
+            //            si el usuario existe en sesion
+            //    convertir dato en un modelo User
+            val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
+
+            goToClienteHome()
+        }
     }
 
 }
